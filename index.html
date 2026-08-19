@@ -1,99 +1,52 @@
-<script>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echtkosten Rechner</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    h1 { color: #0078d7; }
+    .box { background: white; padding: 20px; border-radius: 10px; max-width: 500px; }
+    input, select { width: 100%; padding: 10px; margin-top: 10px; }
+    button { margin-top: 20px; padding: 10px; width: 100%; background: #0078d7; color: white; border: none; border-radius: 5px; }
+    #result { margin-top: 20px; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
 
-function euro(value) {
-  return value.toLocaleString("de-DE", {
-    style: "currency",
-    currency: "EUR"
-  });
-}
+<h1>Echtkosten Rechner</h1>
 
-// SF-Faktoren (vereinfachte Realität)
-const sfFactors = {
-  0: 1.20,
-  1: 1.15,
-  2: 1.10,
-  3: 1.05,
-  4: 1.00,
-  5: 0.95,
-  6: 0.90,
-  7: 0.85,
-  8: 0.80,
-  9: 0.75,
-  10: 0.70,
-  15: 0.65,
-  20: 0.60,
-  25: 0.55,
-  30: 0.50,
-  35: 0.45
-};
+<div class="box">
+  <label>Einmalige Kosten (€)</label>
+  <input id="einmalig" type="number">
 
-function calculate() {
+  <label>Monatliche Kosten (€)</label>
+  <input id="monatlich" type="number">
 
-  const monthly = Number(document.getElementById("monthly").value) || 0;
-  const years = Number(document.getElementById("years").value) || 0;
-  const once = Number(document.getElementById("once").value) || 0;
-  const discount = Number(document.getElementById("discount").value) || 0;
+  <label>Jährliche Kosten (€)</label>
+  <input id="jaehrlich" type="number">
 
-  // SF nur wenn sichtbar
-  const sfVisible = document.getElementById("sfField").style.display === "block";
-  const sf = sfVisible ? Number(document.getElementById("sf").value) : null;
+  <label>Zusatzkosten (€)</label>
+  <input id="zusatz" type="number">
 
-  const sfFactor = sf !== null ? sfFactors[sf] : 1;
+  <label>Rabatt (%)</label>
+  <input id="rabatt" type="number">
 
-  const monthlyAdjusted = monthly * sfFactor;
+  <label>Laufzeit</label>
+  <select id="laufzeitTyp">
+    <option value="monate">Monate</option>
+    <option value="jahre">Jahre</option>
+  </select>
 
-  const total =
-    monthlyAdjusted * 12 * years +
-    once -
-    discount;
+  <label>Laufzeit Anzahl</label>
+  <input id="laufzeit" type="number">
 
-  const yearly = monthlyAdjusted * 12;
+  <button onclick="berechnen()">Berechnen</button>
 
-  const daily = total / (years * 365);
+  <div id="result"></div>
+</div>
 
-  document.getElementById("result").innerHTML = `
-    <div class="result-box">
-      <div>Deine Gesamtkosten:</div>
-      <div class="big">${euro(total)}</div>
-
-      <div class="result-grid">
-        <div class="result-item">
-          <small>pro Monat</small>
-          <strong>${euro(monthlyAdjusted)}</strong>
-        </div>
-
-        <div class="result-item">
-          <small>pro Jahr</small>
-          <strong>${euro(yearly)}</strong>
-        </div>
-
-        <div class="result-item">
-          <small>pro Tag</small>
-          <strong>${euro(daily)}</strong>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function showCalculator(category) {
-
-  document.getElementById("calculatorTitle").innerText =
-    "💰 " + category + "-Rechner";
-
-  // SF nur bei Auto anzeigen
-  if (category === "Auto") {
-    document.getElementById("sfField").style.display = "block";
-  } else {
-    document.getElementById("sfField").style.display = "none";
-  }
-
-  document.querySelector(".calculator")
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-}
-
-calculate();
-
-</script>
+<script src="script.js"></script>
+</body>
+</html>
