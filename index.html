@@ -3,49 +3,244 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echtkosten Rechner</title>
+
+  <title>ECHTKOSTEN – Berechnen. Vergleichen. Sparen.</title>
+
   <style>
-    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
-    h1 { color: #0078d7; }
-    .box { background: white; padding: 20px; border-radius: 10px; max-width: 500px; }
-    input, select { width: 100%; padding: 10px; margin-top: 10px; }
-    button { margin-top: 20px; padding: 10px; width: 100%; background: #0078d7; color: white; border: none; border-radius: 5px; }
-    #result { margin-top: 20px; font-size: 1.2rem; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #17191c;
+    }
+
+    header {
+      background: #111318;
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 58px;
+      margin: 0 0 15px;
+      letter-spacing: -3px;
+    }
+
+    header p {
+      font-size: 20px;
+      color: #c8cbd1;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: -35px auto 60px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    }
+
+    h2 { margin-top: 0; }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .category {
+      border: 1px solid #e0e2e6;
+      border-radius: 18px;
+      padding: 25px 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      background: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .icon {
+      font-size: 35px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .calculator { margin-top: 25px; }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 6px;
+      border: 1px solid #d7d9dd;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      background: #111318;
+      color: white;
+      padding: 17px;
+      margin-top: 20px;
+      border-radius: 13px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover { background: #292c33; }
+
+    #result { margin-top: 25px; }
+
+    .result-box {
+      background: #eef9f1;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .result-box .big {
+      font-size: 38px;
+      font-weight: bold;
+      color: #16733a;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .result-item {
+      background: #f1f2f4;
+      padding: 18px;
+      border-radius: 14px;
+    }
+
+    .result-item small {
+      display: block;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .result-item strong {
+      font-size: 21px;
+    }
+
+    @media (max-width: 700px) {
+      .categories,
+      .inputs,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 { font-size: 42px; }
+    }
   </style>
 </head>
+
 <body>
 
-<h1>Echtkosten Rechner</h1>
+<header>
+  <h1>ECHTKOSTEN</h1>
+  <p>Berechnen. Vergleichen. Sparen.</p>
+</header>
 
-<div class="box">
-  <label>Einmalige Kosten (€)</label>
-  <input id="einmalig" type="number">
+<main>
 
-  <label>Monatliche Kosten (€)</label>
-  <input id="monatlich" type="number">
+  <section class="card">
+    <h2>Was möchtest du berechnen?</h2>
 
-  <label>Jährliche Kosten (€)</label>
-  <input id="jaehrlich" type="number">
+    <div class="categories">
+      <div class="category" onclick="showCalculator('Strom')"><span class="icon">⚡</span>Strom</div>
+      <div class="category" onclick="showCalculator('Auto')"><span class="icon">🚗</span>Auto</div>
+      <div class="category" onclick="showCalculator('Handy')"><span class="icon">📱</span>Handy</div>
+      <div class="category" onclick="showCalculator('Internet')"><span class="icon">🌐</span>Internet</div>
+      <div class="category" onclick="showCalculator('Abos')"><span class="icon">📺</span>Abos</div>
+      <div class="category" onclick="showCalculator('Kredit')"><span class="icon">💳</span>Kredit</div>
+    </div>
+  </section>
 
-  <label>Zusatzkosten (€)</label>
-  <input id="zusatz" type="number">
+  <section class="card calculator">
+    <h2 id="calculatorTitle">💰 Allgemeiner Kostenrechner</h2>
 
-  <label>Rabatt (%)</label>
-  <input id="rabatt" type="number">
+    <div class="inputs">
 
-  <label>Laufzeit</label>
-  <select id="laufzeitTyp">
-    <option value="monate">Monate</option>
-    <option value="jahre">Jahre</option>
-  </select>
+      <div>
+        <label>Einmalige Kosten (€)</label>
+        <input id="einmalig" type="number">
+      </div>
 
-  <label>Laufzeit Anzahl</label>
-  <input id="laufzeit" type="number">
+      <div>
+        <label>Monatliche Kosten (€)</label>
+        <input id="monatlich" type="number">
+      </div>
 
-  <button onclick="berechnen()">Berechnen</button>
+      <div>
+        <label>Jährliche Kosten (€)</label>
+        <input id="jaehrlich" type="number">
+      </div>
 
-  <div id="result"></div>
-</div>
+      <div>
+        <label>Zusatzkosten (€)</label>
+        <input id="zusatz" type="number">
+      </div>
+
+      <div>
+        <label>Rabatt (%)</label>
+        <input id="rabatt" type="number">
+      </div>
+
+      <div>
+        <label>Laufzeit</label>
+        <select id="laufzeitTyp">
+          <option value="monate">Monate</option>
+          <option value="jahre">Jahre</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Laufzeit Anzahl</label>
+        <input id="laufzeit" type="number">
+      </div>
+
+    </div>
+
+    <button onclick="berechnen()">Berechnen</button>
+
+    <div id="result"></div>
+
+  </section>
+
+</main>
 
 <script src="script.js"></script>
 </body>
