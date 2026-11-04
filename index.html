@@ -1,247 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>ECHTKOSTEN – Berechnen. Vergleichen. Sparen.</title>
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #17191c;
-    }
-
-    header {
-      background: #111318;
-      color: white;
-      padding: 70px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 58px;
-      margin: 0 0 15px;
-      letter-spacing: -3px;
-    }
-
-    header p {
-      font-size: 20px;
-      color: #c8cbd1;
-      margin: 0;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: -35px auto 60px;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-    }
-
-    h2 { margin-top: 0; }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .category {
-      border: 1px solid #e0e2e6;
-      border-radius: 18px;
-      padding: 25px 15px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      background: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .category:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    .icon {
-      font-size: 35px;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .calculator { margin-top: 25px; }
-
-    .inputs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 14px;
-      margin-top: 6px;
-      border: 1px solid #d7d9dd;
-      border-radius: 12px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      border: none;
-      background: #111318;
-      color: white;
-      padding: 17px;
-      margin-top: 20px;
-      border-radius: 13px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover { background: #292c33; }
-
-    #result { margin-top: 25px; }
-
-    .result-box {
-      background: #eef9f1;
-      border-radius: 18px;
-      padding: 25px;
-      text-align: center;
-    }
-
-    .result-box .big {
-      font-size: 38px;
-      font-weight: bold;
-      color: #16733a;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 15px;
-    }
-
-    .result-item {
-      background: #f1f2f4;
-      padding: 18px;
-      border-radius: 14px;
-    }
-
-    .result-item small {
-      display: block;
-      color: #666;
-      margin-bottom: 5px;
-    }
-
-    .result-item strong {
-      font-size: 21px;
-    }
-
-    @media (max-width: 700px) {
-      .categories,
-      .inputs,
-      .result-grid {
-        grid-template-columns: 1fr;
-      }
-
-      header h1 { font-size: 42px; }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174335">
+  <meta name="description" content="ECHTKOSTEN macht laufende und einmalige Kosten verständlich. Berechne deinen Autokauf und vergleiche Kosten übersichtlich.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="ECHTKOSTEN">
+  <meta property="og:title" content="ECHTKOSTEN – Was kostet es wirklich?">
+  <meta property="og:description" content="Berechne Kosten verständlich und behalte den Überblick über deine Ausgaben.">
+  <title>ECHTKOSTEN – Kosten einfach berechnen</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-
-<header>
-  <h1>ECHTKOSTEN</h1>
-  <p>Berechnen. Vergleichen. Sparen.</p>
-</header>
-
-<main>
-
-  <section class="card">
-    <h2>Was möchtest du berechnen?</h2>
-
-    <div class="categories">
-      <div class="category" onclick="showCalculator('Strom')"><span class="icon">⚡</span>Strom</div>
-      <div class="category" onclick="showCalculator('Auto')"><span class="icon">🚗</span>Auto</div>
-      <div class="category" onclick="showCalculator('Handy')"><span class="icon">📱</span>Handy</div>
-      <div class="category" onclick="showCalculator('Internet')"><span class="icon">🌐</span>Internet</div>
-      <div class="category" onclick="showCalculator('Abos')"><span class="icon">📺</span>Abos</div>
-      <div class="category" onclick="showCalculator('Kredit')"><span class="icon">💳</span>Kredit</div>
+  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+  <header class="site-header" id="oben">
+    <div class="container header-inner">
+      <a class="brand" href="#oben" aria-label="ECHTKOSTEN Startseite">
+        <span class="brand-mark" aria-hidden="true">e</span>
+        <span class="brand-name">ECHT<span>KOSTEN</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="#rechner">Rechner</a>
+        <a href="#so-gehts">So funktioniert’s</a>
+        <a href="#transparenz">Transparenz</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <section class="card calculator">
-    <h2 id="calculatorTitle">💰 Allgemeiner Kostenrechner</h2>
-
-    <div class="inputs">
-
-      <div>
-        <label>Einmalige Kosten (€)</label>
-        <input id="einmalig" type="number">
+  <main id="main-content">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> Klar rechnen. Besser entscheiden.</p>
+          <h1>Was kostet es <em>wirklich?</em></h1>
+          <p class="hero-description">Einmalige Ausgaben, laufende Kosten und Wertverlust: Mit ECHTKOSTEN siehst du, was über die Zeit zusammenkommt.</p>
+          <div class="hero-actions">
+            <a class="button button-lime" href="#rechner">Kosten berechnen <span aria-hidden="true">↓</span></a>
+            <span class="hero-trust">Ohne Anmeldung · direkt im Browser</span>
+          </div>
+        </div>
+        <aside class="hero-aside" aria-label="So hilft dir ECHTKOSTEN">
+          <div class="hero-aside-top"><span class="hero-aside-icon" aria-hidden="true">↗</span><span>Dein Kostenüberblick</span></div>
+          <p class="hero-aside-title">Zahlen, die eine Entscheidung leichter machen.</p>
+          <div class="hero-aside-rule"></div>
+          <div class="hero-steps">
+            <div><span>01</span><p>Eingaben machen</p></div>
+            <div><span>02</span><p>Ergebnis verstehen</p></div>
+            <div><span>03</span><p>Besser vergleichen</p></div>
+          </div>
+        </aside>
       </div>
+      <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+    </section>
 
-      <div>
-        <label>Monatliche Kosten (€)</label>
-        <input id="monatlich" type="number">
+    <section class="section calculator-section" id="rechner" aria-labelledby="calculatorSectionTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Dein nächster Schritt</p>
+            <h2 id="calculatorSectionTitle">Womit möchtest du starten?</h2>
+            <p>Wähle einen Bereich. Du kannst deine Eingaben jederzeit anpassen.</p>
+          </div>
+          <span class="section-index">01 <span>/</span> 03</span>
+        </div>
+
+        <div class="category-grid" role="group" aria-label="Kostenbereich auswählen">
+          <button class="category-button" type="button" data-panel="general" data-label="Strom" aria-controls="generalPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">⚡</span><span>Strom</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+          <button class="category-button" type="button" data-panel="auto" data-label="Auto" aria-controls="carPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">🚗</span><span>Auto</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+          <button class="category-button" type="button" data-panel="general" data-label="Handy" aria-controls="generalPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">📱</span><span>Handy</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+          <button class="category-button" type="button" data-panel="general" data-label="Internet" aria-controls="generalPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">🌐</span><span>Internet</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+          <button class="category-button" type="button" data-panel="general" data-label="Abos" aria-controls="generalPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">▶</span><span>Abos</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+          <button class="category-button" type="button" data-panel="general" data-label="Kredit" aria-controls="generalPanel" aria-pressed="false"><span class="category-icon" aria-hidden="true">€</span><span>Kredit</span><span class="category-arrow" aria-hidden="true">↗</span></button>
+        </div>
+
+        <section class="calculator-panel" id="generalPanel" aria-labelledby="generalTitle">
+          <div class="calculator-heading">
+            <div>
+              <p class="eyebrow">Kostenrechner</p>
+              <h2 id="generalTitle">Allgemeiner Kostenrechner</h2>
+              <p id="generalDescription">Einmalige und laufende Kosten über einen Zeitraum zusammenrechnen.</p>
+            </div>
+            <span class="calculator-heading-icon" aria-hidden="true">＋</span>
+          </div>
+          <form id="generalForm" novalidate>
+            <div class="form-grid">
+              <div class="field"><label for="generalOneTime">Einmalige Kosten</label><div class="input-wrap"><input id="generalOneTime" name="oneTime" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€</span></div></div>
+              <div class="field"><label for="generalMonthly">Monatliche Kosten</label><div class="input-wrap"><input id="generalMonthly" name="monthly" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€ / Monat</span></div></div>
+              <div class="field"><label for="generalAnnual">Jährliche Kosten</label><div class="input-wrap"><input id="generalAnnual" name="annual" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€ / Jahr</span></div></div>
+              <div class="field"><label for="generalExtra">Zusatzkosten</label><div class="input-wrap"><input id="generalExtra" name="extra" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€</span></div></div>
+              <div class="field"><label for="generalDiscount">Rabatt</label><div class="input-wrap"><input id="generalDiscount" name="discount" type="number" min="0" max="100" step="any" inputmode="decimal" value="0"><span>%</span></div><small>Gilt für einmalige Kosten und Zusatzkosten.</small></div>
+              <div class="field field-duration">
+                <label for="generalDuration">Laufzeit</label>
+                <div class="duration-inputs">
+                  <input id="generalDuration" name="duration" type="number" min="1" step="1" inputmode="numeric" value="12" aria-label="Anzahl der Monate oder Jahre">
+                  <select id="generalDurationUnit" name="durationUnit" aria-label="Einheit der Laufzeit"><option value="months">Monate</option><option value="years">Jahre</option></select>
+                </div>
+              </div>
+            </div>
+            <p class="form-error" id="generalError" role="alert" hidden></p>
+            <button class="button button-dark calculate-button" type="submit">Kosten berechnen <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="result-wrap" id="generalResult" aria-live="polite" aria-atomic="true" hidden></div>
+
+          <form id="electricityForm" novalidate hidden>
+            <fieldset class="form-group">
+              <legend><span>01</span> Verbrauch & Tarif</legend>
+              <div class="form-grid">
+                <div class="field"><label for="electricityAnnualKwh">Stromverbrauch pro Jahr</label><div class="input-wrap"><input id="electricityAnnualKwh" name="annualKwh" type="number" min="0" step="any" inputmode="decimal" value="3500"><span>kWh / Jahr</span></div><small>Beispielwert – deinen Verbrauch findest du auf der Jahresabrechnung.</small></div>
+                <div class="field"><label for="electricityPricePerKwh">Arbeitspreis je Kilowattstunde</label><div class="input-wrap"><input id="electricityPricePerKwh" name="pricePerKwh" type="number" min="0" step="any" inputmode="decimal" value="0.35"><span>€ / kWh</span></div><small>35 Cent je kWh entsprechen 0,35 € / kWh.</small></div>
+                <div class="field"><label for="electricityBaseFee">Grundpreis</label><div class="input-wrap"><input id="electricityBaseFee" name="monthlyBaseFee" type="number" min="0" step="any" inputmode="decimal" value="12"><span>€ / Monat</span></div></div>
+                <div class="field"><label for="electricityMeterFee">Zähler- und Messstellengebühr</label><div class="input-wrap"><input id="electricityMeterFee" name="monthlyMeterFee" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€ / Monat</span></div></div>
+                <div class="field"><label for="electricityOtherMonthlyFees">Weitere feste Gebühren</label><div class="input-wrap"><input id="electricityOtherMonthlyFees" name="monthlyOtherFees" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€ / Monat</span></div><small>Zum Beispiel zusätzliche monatliche Tarifkosten.</small></div>
+                <div class="field"><label for="electricityAnnualFees">Weitere Jahresgebühren</label><div class="input-wrap"><input id="electricityAnnualFees" name="annualOtherFees" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€ / Jahr</span></div></div>
+                <div class="field"><label for="electricityOneTimeFees">Einmalige Gebühren</label><div class="input-wrap"><input id="electricityOneTimeFees" name="oneTimeFees" type="number" min="0" step="any" inputmode="decimal" value="0"><span>€</span></div></div>
+                <div class="field"><label for="electricityDurationYears">Berechnungszeitraum</label><div class="input-wrap"><input id="electricityDurationYears" name="durationYears" type="number" min="1" max="60" step="1" inputmode="numeric" value="1"><span>Jahre</span></div></div>
+              </div>
+              <div class="field-note"><span class="field-note-icon" aria-hidden="true">i</span><p>Trage Gebühren getrennt ein. Wenn die Zählergebühr bereits im Grundpreis steckt, lass dieses Feld auf 0 €, damit sie nicht doppelt zählt.</p></div>
+            </fieldset>
+            <p class="form-error" id="electricityError" role="alert" hidden></p>
+            <button class="button button-dark calculate-button" type="submit">Stromkosten berechnen <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="result-wrap" id="electricityResult" aria-live="polite" aria-atomic="true" hidden></div>
+
+          <form id="creditForm" novalidate hidden>
+            <fieldset class="form-group">
+              <legend><span>01</span> Kreditdaten</legend>
+              <div class="form-grid">
+                <div class="field"><label for="creditAmount">Kreditsumme</label><div class="input-wrap"><input id="creditAmount" name="principal" type="number" min="0" step="any" inputmode="decimal" value="10000"><span>€</span></div></div>
+                <div class="field"><label for="creditInterestRate">Sollzins pro Jahr</label><div class="input-wrap"><input id="creditInterestRate" name="annualInterestRate" type="number" min="0" max="100" step="any" inputmode="decimal" value="5.9"><span>%</span></div><small>Vereinfachte Rechnung ohne zusätzliche Bankgebühren.</small></div>
+                <div class="field"><label for="creditTermMonths">Laufzeit</label><div class="input-wrap"><input id="creditTermMonths" name="termMonths" type="number" min="1" max="600" step="1" inputmode="numeric" value="60"><span>Monate</span></div></div>
+              </div>
+              <div class="field-note"><span class="field-note-icon" aria-hidden="true">i</span><p>Die Monatsrate bleibt gleich. Am Anfang geht mehr davon für Zinsen drauf, später steigt der Tilgungsanteil. So wird die Restschuld Monat für Monat kleiner.</p></div>
+            </fieldset>
+            <p class="form-error" id="creditError" role="alert" hidden></p>
+            <button class="button button-dark calculate-button" type="submit">Kredit berechnen <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="result-wrap" id="creditResult" aria-live="polite" aria-atomic="true" hidden></div>
+        </section>
+
+        <section class="calculator-panel" id="carPanel" aria-labelledby="carTitle" hidden>
+          <div class="calculator-heading">
+            <div>
+              <p class="eyebrow">Autokostenrechner</p>
+              <h2 id="carTitle">Was kostet dein Auto wirklich?</h2>
+              <p>Berücksichtige Kauf, Finanzierung, Nutzung und den geschätzten Wertverlust.</p>
+            </div>
+            <span class="calculator-heading-icon" aria-hidden="true">↗</span>
+          </div>
+          <form id="carForm" novalidate>
+            <fieldset class="form-group">
+              <legend><span>01</span> Fahrzeug & Finanzierung</legend>
+              <div class="form-grid">
+                <div class="field"><label for="carPurchasePrice">Kaufpreis</label><div class="input-wrap"><input id="carPurchasePrice" name="purchasePrice" type="number" min="0" step="any" inputmode="decimal" value="25000"><span>€</span></div></div>
+                <div class="field"><label for="carDownPayment">Anzahlung</label><div class="input-wrap"><input id="carDownPayment" name="downPayment" type="number" min="0" step="any" inputmode="decimal" value="5000"><span>€</span></div></div>
+                <div class="field"><label for="carInterest">Sollzins pro Jahr</label><div class="input-wrap"><input id="carInterest" name="annualInterestRate" type="number" min="0" max="100" step="any" inputmode="decimal" value="5.9"><span>%</span></div></div>
+                <div class="field"><label for="carLoanTerm">Kreditlaufzeit</label><div class="input-wrap"><input id="carLoanTerm" name="loanTermMonths" type="number" min="1" max="600" step="1" inputmode="numeric" value="60"><span>Monate</span></div></div>
+                <div class="field"><label for="carOwnershipYears">Geplante Besitzdauer</label><div class="input-wrap"><input id="carOwnershipYears" name="ownershipYears" type="number" min="1" max="40" step="1" inputmode="numeric" value="5"><span>Jahre</span></div></div>
+                <div class="field field-note"><span class="field-note-icon" aria-hidden="true">i</span><p>Der Rechner zeigt Rate und Zinsen getrennt vom Wertverlust. So wird der Kaufpreis nicht doppelt gezählt.</p></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <legend><span>02</span> Laufende Kosten</legend>
+              <div class="form-grid">
+                <div class="field"><label for="carInsurance">Versicherung pro Jahr</label><div class="input-wrap"><input id="carInsurance" name="annualInsurance" type="number" min="0" step="any" inputmode="decimal" value="720"><span>€ / Jahr</span></div></div>
+                <div class="field"><label for="carTax">Kfz-Steuer pro Jahr</label><div class="input-wrap"><input id="carTax" name="annualTax" type="number" min="0" step="any" inputmode="decimal" value="180"><span>€ / Jahr</span></div></div>
+                <div class="field"><label for="carMaintenance">Wartung pro Jahr</label><div class="input-wrap"><input id="carMaintenance" name="annualMaintenance" type="number" min="0" step="any" inputmode="decimal" value="600"><span>€ / Jahr</span></div></div>
+                <div class="field"><label for="carMileage">Fahrleistung pro Jahr</label><div class="input-wrap"><input id="carMileage" name="annualMileage" type="number" min="0" step="1" inputmode="numeric" value="12000"><span>km / Jahr</span></div></div>
+                <div class="field"><label for="carEnergyType">Antriebsart</label><select id="carEnergyType" name="energyType"><option value="petrol">Benzin</option><option value="diesel">Diesel</option><option value="electric">Elektro</option></select></div>
+                <div class="field"><label for="carConsumption" id="carConsumptionLabel">Verbrauch (Liter / 100 km)</label><div class="input-wrap"><input id="carConsumption" name="energyConsumption" type="number" min="0" step="any" inputmode="decimal" value="6.5"><span id="carConsumptionUnit">L / 100 km</span></div></div>
+                <div class="field"><label for="carEnergyPrice" id="carEnergyPriceLabel">Preis pro Liter</label><div class="input-wrap"><input id="carEnergyPrice" name="energyPrice" type="number" min="0" step="any" inputmode="decimal" value="1.8"><span id="carEnergyPriceUnit">€ / L</span></div></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <legend><span>03</span> Wertverlust einschätzen</legend>
+              <div class="form-grid">
+                <div class="field"><label for="carResaleValue">Geschätzter Verkaufspreis am Ende</label><div class="input-wrap"><input id="carResaleValue" name="resaleValue" type="number" min="0" step="any" inputmode="decimal" value="10000"><span>€</span></div><small>Schätze, was dein Auto nach der geplanten Besitzdauer noch wert ist.</small></div>
+              </div>
+            </fieldset>
+            <p class="form-error" id="carError" role="alert" hidden></p>
+            <button class="button button-dark calculate-button" type="submit">Autokosten berechnen <span aria-hidden="true">→</span></button>
+          </form>
+          <div class="result-wrap" id="carResult" aria-live="polite" aria-atomic="true" hidden></div>
+        </section>
       </div>
+    </section>
 
-      <div>
-        <label>Jährliche Kosten (€)</label>
-        <input id="jaehrlich" type="number">
+    <section class="section how-section" id="so-gehts" aria-labelledby="howTitle">
+      <div class="container how-inner">
+        <div class="how-intro">
+          <p class="eyebrow">Einfach nachvollziehbar</p>
+          <h2 id="howTitle">Die ganze Rechnung. Nicht nur der erste Preis.</h2>
+          <p>Ein günstiger Einstiegspreis sagt wenig darüber aus, was etwas über Monate oder Jahre kostet. ECHTKOSTEN ordnet die Bestandteile, damit du sie besser vergleichen kannst.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card"><span>01</span><h3>Deine Angaben</h3><p>Du bestimmst die Werte und den Zeitraum. Es gibt keine versteckten Annahmen.</p></article>
+          <article class="trust-card"><span>02</span><h3>Klare Aufteilung</h3><p>Einmalige Kosten, laufende Ausgaben, Zinsen und Wertverlust bleiben unterscheidbar.</p></article>
+          <article class="trust-card"><span>03</span><h3>Direkt berechnet</h3><p>Deine Eingaben werden in deinem Browser verarbeitet und nicht an einen Rechnerdienst gesendet.</p></article>
+        </div>
       </div>
+    </section>
 
-      <div>
-        <label>Zusatzkosten (€)</label>
-        <input id="zusatz" type="number">
+    <section class="transparency-section" id="transparenz" aria-labelledby="transparencyTitle">
+      <div class="container transparency-inner">
+        <div class="transparency-mark" aria-hidden="true">✓</div>
+        <div>
+          <p class="eyebrow eyebrow-light">Unser Anspruch</p>
+          <h2 id="transparencyTitle">Nachvollziehbar statt Kleingedrucktes.</h2>
+          <p>Ergebnisse hängen von deinen Angaben ab. Kraftstoff- und Strompreise, Wartung und Wiederverkaufswert sind Schätzwerte. Falls später Partnerangebote hinzukommen, werden sie klar gekennzeichnet und ändern nicht die Rechenformeln.</p>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <div>
-        <label>Rabatt (%)</label>
-        <input id="rabatt" type="number">
-      </div>
-
-      <div>
-        <label>Laufzeit</label>
-        <select id="laufzeitTyp">
-          <option value="monate">Monate</option>
-          <option value="jahre">Jahre</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Laufzeit Anzahl</label>
-        <input id="laufzeit" type="number">
-      </div>
-
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand brand-footer" href="#oben" aria-label="ECHTKOSTEN nach oben"><span class="brand-mark" aria-hidden="true">e</span><span class="brand-name">ECHT<span>KOSTEN</span></span></a>
+      <p>Berechnen. Vergleichen. Besser entscheiden.</p>
+      <nav class="footer-links" aria-label="Rechtliche Informationen">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+      <p class="footer-small">© <span id="currentYear">2026</span> ECHTKOSTEN · Die Ergebnisse sind Schätzungen auf Basis deiner Eingaben.</p>
     </div>
-
-    <button onclick="berechnen()">Berechnen</button>
-
-    <div id="result"></div>
-
-  </section>
-
-</main>
-
-<script src="script.js"></script>
+  </footer>
 </body>
 </html>
