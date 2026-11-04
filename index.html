@@ -234,7 +234,9 @@
     <nav class="footer-links" aria-label="Rechtliche Informationen">
   <a href="impressum.html">Impressum</a>
   <a href="datenschutz.html">Datenschutz</a>
-  <a href="#" onclick="googlefc.showRevocationMessage(); return false;">
+<a href="javascript:googlefc.callbackQueue.push(googlefc.showRevocationMessage)">
+    Cookie-Einstellungen
+  </a>
     Cookie-Einstellungen
   </a>
 </nav>
